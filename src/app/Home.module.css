@@ -1,0 +1,487 @@
+.mondrianGrid {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 100px);
+  margin-top: 20px;
+}
+
+/* Main vertical lines that span the full height */
+.verticalLine {
+  position: fixed;
+  width: 8px;
+  min-height: 100vh;
+  background-color: black;
+  left: 35%;
+  top: 0;
+  z-index: 1000;
+}
+
+.rightVerticalLine {
+  position: fixed;
+  width: 8px;
+  min-height: 100vh;
+  background-color: black;
+  right: 100px;
+  top: 0;
+  z-index: 1000;
+}
+
+.middleHorizontalLine {
+  position: absolute;
+  width: 50%;
+  height: 8px;
+  background-color: black;
+  top: 50%;
+  right: 0;
+  z-index: 1000;
+}
+
+.bottomHorizontalLine {
+  position: absolute;
+  width: 50%;
+  height: 8px;
+  background-color: black;
+  top: 75%;
+  left: 0;
+  z-index: 1000;
+}
+
+.centerHorizontalLine {
+  position: absolute;
+  width: 100%;
+  height: 8px;
+  background-color: black;
+  top: 40%;
+  left: 0;
+  z-index: 1000;
+}
+
+.farLeftVerticalLine {
+  position: fixed;
+  width: 8px;
+  height: min(calc(40vh - 80px), calc(40% - 80px)); /* Match the blue square height */
+  background-color: black;
+  left: 15%; /* Moved further left (from 29% to 15%) */
+  top: 80px; /* Connect directly to the navbar like the blue square */
+  bottom: auto;
+  z-index: 1000;
+  max-height: calc(40% - 80px); /* Match blue square max-height */
+}
+
+.middleVerticalLine {
+  position: fixed;
+  width: 8px;
+  min-height: 100vh;
+  background-color: black;
+  left: 50%;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Colored squares for grid sections */
+.blueSquare {
+  position: fixed;
+  top: 80px; /* Connect directly to the navbar without the border gap */
+  left: 15.5%; /* Just after the farLeftVerticalLine (updated from 29.5%) */
+  width: calc(35% - 15.5%); /* From farLeftVerticalLine to verticalLine (wider now) */
+  height: min(calc(40vh - 80px), calc(40% - 80px)); /* Adjusted for navbar without including border */
+  max-height: calc(40% - 80px); /* Ensure it never exceeds centerHorizontalLine */
+  background-color: #0047AB; /* Cobalt Blue */
+  z-index: 10; /* Below the lines */
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.yellowSquare {
+  position: fixed;
+  top: calc(50vh + 4px); /* Just below the centerHorizontalLine */
+  left: 50.5%; /* Just after the middleVerticalLine */
+  width: calc(100% - 100px - 50.5%); /* From middleVerticalLine to end, minus rightVerticalLine position */
+  height: calc(75% - 25vh); /* From centerHorizontalLine to bottomHorizontalLine */
+  background-color: #FFD700; /* Golden Yellow */
+  z-index: 10; /* Below the lines */
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.whiteSquare {
+  position: fixed;
+  top: 80px; /* Connect directly to the navbar without the border gap */
+  left: 50.5%; /* Same as yellowSquare */
+  width: calc(100% - 100px - 50.5%); /* Same width as yellowSquare */
+  height: min(calc(40vh - 80px), calc(40% - 80px)); /* Adjusted for navbar without including border */
+  max-height: calc(40% - 80px); /* Ensure it never exceeds centerHorizontalLine */
+  background-color: #ffffff; /* White */
+  z-index: 10; /* Below the lines */
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.blackSquare {
+  position: fixed;
+  top: calc(75% + 4px); /* Just below the bottomHorizontalLine */
+  left: 35.5%; /* Just after the verticalLine */
+  width: calc(50% - 35.5%); /* From verticalLine to middleVerticalLine */
+  height: calc(100vh - 75% - 2px); /* From bottomHorizontalLine to bottom of viewport */
+  background-color: #000000; /* Black */
+  z-index: 10; /* Below the lines */
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.redSquare {
+  position: fixed;
+  top: calc(40%); /* Just below the middleHorizontalLine */
+  left: 0%; /* Just after the verticalLine */
+  width: calc(50% - 15%); /* Same width as the black square */
+  height: calc(75% - 39%); /* From middleHorizontalLine to bottomHorizontalLine */
+  background-color: #d40a0a; /* Bright red */
+  z-index: 10; /* Below the lines */
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Rectangle link wrapper */
+.rectangleLink {
+  display: block;
+  position: fixed;
+  z-index: 25; /* Significantly higher to ensure it's on top */
+  cursor: pointer;
+}
+
+/* Specific link position classes to match their rectangles */
+.blueLink {
+  top: 80px;
+  left: 15.5%;
+  width: calc(35% - 15.5%);
+  height: min(calc(40vh - 80px), calc(40% - 80px));
+  padding: 10px; /* Add padding to expand the touch/hover area */
+  margin: -10px; /* Negative margin to maintain visual position */
+}
+
+.yellowLink {
+  top: calc(50vh + 4px);
+  left: 50.5%;
+  width: calc(100% - 100px - 50.5%);
+  height: calc(75% - 25vh);
+}
+
+.whiteLink {
+  top: 80px;
+  left: 50.5%;
+  width: calc(100% - 100px - 50.5%);
+  height: min(calc(40vh - 80px), calc(40% - 80px));
+}
+
+.blackLink {
+  top: calc(75% + 4px);
+  left: 35.5%;
+  width: calc(50% - 35.5%);
+  height: calc(100vh - 75% - 2px);
+}
+
+.redLink {
+  top: calc(40%);
+  left: 0%;
+  width: calc(50% - 15%);
+  height: calc(75% - 39%);
+  padding: 10px; /* Add padding to expand the touch/hover area */
+  margin: -10px; /* Negative margin to maintain visual position */
+}
+
+/* Color squares should be contained within the link */
+.blueSquare, .yellowSquare, .whiteSquare, .blackSquare, .redSquare {
+  position: fixed;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10; /* Below the lines */
+  pointer-events: none; /* Disable pointer events on the squares themselves */
+}
+
+/* Hover text styles */
+.hoverText {
+  opacity: 0;
+  color: #000000;
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  text-align: center;
+  transition: opacity 0.3s ease;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  pointer-events: none; /* So it doesn't interfere with clicks */
+  text-transform: lowercase;
+  z-index: 30; /* Above everything */
+}
+
+/* Stacked text for data engineering */
+.blackSquare .hoverText {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.1rem; /* Slightly smaller font */
+  line-height: 0.9;
+  color: #FFFFFF; /* White text for black background */
+}
+
+/* Hover effects - use the link to trigger the effect */
+.rectangleLink:hover .blueSquare,
+.rectangleLink:hover .yellowSquare,
+.rectangleLink:hover .whiteSquare,
+.rectangleLink:hover .blackSquare,
+.rectangleLink:hover .redSquare {
+  opacity: 0.8;
+}
+
+.rectangleLink:hover .hoverText {
+  opacity: 1;
+}
+
+/* Update the responsive adjustments for Mondrian grid */
+@media (max-width: 830px) {  /* Changed from 768px to 830px to match navbar breakpoint */
+  .farLeftVerticalLine {
+    /* Keep same positioning as desktop */
+    top: 80px;
+    height: min(calc(40vh - 80px), calc(40% - 80px));
+    max-height: calc(40% - 80px);
+  }
+  
+  .blueSquare {
+    /* Keep same positioning as desktop */
+    top: 80px;
+    height: min(calc(40vh - 80px), calc(40% - 80px));
+    max-height: calc(40% - 80px);
+  }
+  
+  .whiteSquare {
+    top: 80px;
+    height: min(calc(40vh - 80px), calc(40% - 80px));
+    max-height: calc(40% - 80px);
+  }
+}
+
+@media (max-width: 480px) {
+  .hoverText {
+    font-size: 0.8rem;
+    letter-spacing: -0.2px;
+  }
+  
+  .blackSquare .hoverText {
+    font-size: 0.75rem;
+  }
+  
+  /* Adjust link positions for the small screens */
+  .blueLink {
+    left: 10.5%;
+    width: calc(35% - 10.5%);
+    padding: 20px; /* Even larger padding on small screens */
+    margin: -20px;
+  }
+  
+  .redLink {
+    padding: 20px; /* Even larger padding on small screens */
+    margin: -20px;
+  }
+  
+  .farLeftVerticalLine {
+    left: 10%;
+  }
+  
+  .blueSquare {
+    left: 10.5%;
+    width: calc(35% - 10.5%);
+  }
+}
+
+/* Desktop/Mobile display helpers */
+.desktopOnly {
+  display: flex;
+  flex-direction: column;
+}
+
+.mobileOnly {
+  display: none;
+  flex-direction: column;
+}
+
+/* Responsive adjustments for hover text */
+@media (max-width: 830px) {
+  /* Restore hover behavior but improve touch detection */
+  .hoverText {
+    font-size: 0.9rem;
+    letter-spacing: -0.3px;
+    /* Ensure text stays where it should */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  /* Improve touch target size */
+  .rectangleLink {
+    position: fixed; /* Match the rectangle positioning */
+    touch-action: manipulation; /* Optimize for touch */
+  }
+  
+  /* Blue square link */
+  .rectangleLink:has(.blueSquare) {
+    top: 80px;
+    left: 15.5%;
+    width: calc(35% - 15.5%);
+    height: min(calc(40vh - 80px), calc(40% - 80px));
+  }
+  
+  /* Yellow square link */
+  .rectangleLink:has(.yellowSquare) {
+    top: calc(50vh + 4px);
+    left: 50.5%;
+    width: calc(100% - 100px - 50.5%);
+    height: calc(75% - 25vh);
+  }
+  
+  /* White square link */
+  .rectangleLink:has(.whiteSquare) {
+    top: 80px;
+    left: 50.5%;
+    width: calc(100% - 100px - 50.5%);
+    height: min(calc(40vh - 80px), calc(40% - 80px));
+  }
+  
+  /* Black square link */
+  .rectangleLink:has(.blackSquare) {
+    top: calc(75% + 4px);
+    left: 35.5%;
+    width: calc(50% - 35.5%);
+    height: calc(100vh - 75% - 2px);
+  }
+  
+  /* Red square link */
+  .rectangleLink:has(.redSquare) {
+    top: calc(40%);
+    left: 0%;
+    width: calc(50% - 15%);
+    height: calc(75% - 39%);
+  }
+  
+  /* Specific styling for data engineering text */
+  .blackSquare .hoverText {
+    font-size: 0.85rem;
+  }
+  
+  /* Switch between desktop and mobile content */
+  .desktopOnly {
+    display: none;
+  }
+  
+  .mobileOnly {
+    display: flex;
+    line-height: 0.9;
+  }
+}
+
+@media (max-width: 480px) {
+  .hoverText {
+    font-size: 0.8rem;
+    letter-spacing: -0.2px;
+    /* Add text shadow for better visibility on all background colors */
+    text-shadow: 0 0 3px rgba(255,255,255,0.3);
+  }
+  
+  .blackSquare .hoverText {
+    font-size: 0.75rem;
+    /* White text with shadow for dark background */
+    text-shadow: 0 0 3px rgba(0,0,0,0.5);
+  }
+  
+  /* Add subtle background to improve text readability */
+  .hoverText {
+    background-color: rgba(255,255,255,0.1);
+    padding: 2px 0;
+    border-radius: 3px;
+  }
+}
+
+/* Ensure the hover area completely covers the rectangles */
+.rectangleLink {
+  display: block;
+  position: fixed;
+  z-index: 25; /* Significantly higher to ensure it's on top */
+  cursor: pointer;
+}
+
+/* Make the squares positioned behind the links */
+.blueSquare, .redSquare, .yellowSquare, .whiteSquare, .blackSquare {
+  z-index: 10;
+  pointer-events: none; /* Disable pointer events on the squares themselves */
+}
+
+/* Ensure hover text is on top and pointer-events none */
+.hoverText {
+  z-index: 30; /* Above everything */
+  pointer-events: none;
+}
+
+/* Make blue and red links extra large to ensure complete coverage */
+.blueLink, .redLink {
+  padding: 10px; /* Add padding to expand the touch/hover area */
+  margin: -10px; /* Negative margin to maintain visual position */
+}
+
+/* Add specific mobile styles for blue and red links */
+@media (max-width: 830px) {
+  .blueLink, .redLink {
+    padding: 15px; /* Larger padding on mobile */
+    margin: -15px;
+  }
+  
+  /* Add an invisible border to expand the touch area */
+  .blueLink::before, .redLink::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    z-index: -1;
+  }
+  
+  .hoverText {
+    font-size: 0.9rem;
+    letter-spacing: -0.3px;
+  }
+  
+  .blackSquare .hoverText {
+    font-size: 0.85rem;
+  }
+  
+  /* Switch between desktop and mobile content */
+  .desktopOnly {
+    display: none;
+  }
+  
+  .mobileOnly {
+    display: flex;
+    line-height: 0.9;
+  }
+} 
